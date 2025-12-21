@@ -1,7 +1,20 @@
+$env.EDITOR = 'nvim'
+$env.PATH ++= ['~/scripts']
+$env.COLORTERM = "truecolor"
+
 source ~/.nuenv
-const $NU_LIB_DIRS = $NU_LIB_DIRS ++ [$MONUREPO_PATH]
+
+const NU_LIB_DIRS = [
+  $MONUREPO_PATH,
+  ($nu.config-path | path dirname | path join 'scripts'),
+] ++ $NU_LIB_DIRS
+
+# external modules
 use nupg
 use nujj
+
+# scripts
+use autocomplete_last.nu
 
 # Nushell Config File
 #
@@ -73,12 +86,12 @@ $env.config.color_config = {
 }
 
 let carapace_completer = {|spans|
-    carapace $spans.0 nushell ...$spans | from json
+  carapace $spans.0 nushell ...$spans | from json
 }
 $env.config.completions.external = {
-    enable: true
-    max_results: 100
-    completer: $carapace_completer
+  enable: true
+  max_results: 100
+  completer: $carapace_completer
 }
 
 $env.config = {
@@ -95,11 +108,6 @@ $env.config = {
     }]
   }
 }
-
-$env.PATH = ($env.PATH | split row (char esep) | prepend ($env.HOME + '/scripts'))
-$env.EDITOR = "vim"
-
-$env.COLORTERM = "truecolor"
 
 alias fg = job unfreeze
 
