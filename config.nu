@@ -15,6 +15,7 @@ use nujj
 
 # scripts
 use autocomplete_last.nu
+use input_date.nu "input date"
 
 # Nushell Config File
 #
@@ -111,5 +112,4 @@ $env.config = {
 
 alias fg = job unfreeze
 
-alias core-jj = jj
-alias jj = core-jj --config width=(tput cols)
+alias jj = ^jj --config width=(tput cols)
