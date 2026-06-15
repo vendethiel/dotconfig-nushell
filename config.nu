@@ -1,5 +1,9 @@
 $env.EDITOR = 'nvim'
-$env.PATH ++= ['~/scripts']
+$env.PATH ++= [
+  ($env.home | path join 'scripts'),
+  '/run/current-system/sw/bin',
+  $'/etc/profiles/per-user/($env.USER)/bin',
+]
 $env.COLORTERM = "truecolor"
 
 source ~/.nuenv
