@@ -1,9 +1,19 @@
 $env.EDITOR = 'nvim'
-$env.PATH ++= [
-  ($env.home | path join 'scripts'),
-  '/run/current-system/sw/bin',
-  $'/etc/profiles/per-user/($env.USER)/bin',
+$env.PATH = [
+  '/usr/bin'
+  '/bin'
+  '/usr/sbin'
+  '/sbin'
+  ([ $env.home 'scripts' ] | path join)
+  '/run/current-system/sw/bin'
+  ([ '/etc/profiles/per-user' $env.USER 'bin' ] | path join)
+  ([ $env.home '.cargo' 'bin' ] | path join)
 ]
+if ($nu.os-info.name == "macos") {
+  $env.PATH ++= [
+    '/opt/homebrew/bin/'
+  ]
+}
 $env.COLORTERM = "truecolor"
 
 source ~/.nuenv
